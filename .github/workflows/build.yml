@@ -7,6 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Unzip uploaded source
+        run: |
+          if [ ! -d app/src/main/jni ]; then
+            unzip -q ./*.zip -d /tmp/src
+            cp -r /tmp/src/*/. .
+          fi
+          ls app/src/main
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
